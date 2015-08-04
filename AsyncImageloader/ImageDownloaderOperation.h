@@ -11,10 +11,11 @@
 
 @interface ImageDownloaderOperation : NSOperation
 
-- (nonnull instancetype)initWithOperationId:(nonnull    NSString *)operationId
-                                    request:(nonnull    NSURLRequest *)request
-                              progressBlock:(nullable   progressBlock)progress
-                              completeBlock:(nonnull    completeBlock)complete
-                               failureBlock:(nullable   failBlock)failure;
+- (instancetype)initWithOperationId:(nonnull    NSString *)operationId
+                            request:(nonnull    NSURLRequest *)request
+                      progressBlock:(nullable   progressBlock)progress
+                      completeBlock:(nonnull    completeBlock)complete
+                         cacheBlock:(nonnull    cacheBlock)cache
+                       failureBlock:(nullable   failBlock)failure;
 
 @end

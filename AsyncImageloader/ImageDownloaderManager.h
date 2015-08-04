@@ -14,6 +14,10 @@ typedef void (^completeBlock)(UIImage * expectedImage);
 
 typedef void (^failBlock)(NSString * message);
 
+typedef void (^cacheBlock)(NSData *cacheData);
+
+typedef void (^cacheQueryBlock)(NSData *data , BOOL success, NSString *errorMessage);
+
 @interface ImageDownloaderManager : NSOperation
 
 + (id)shareInstance;

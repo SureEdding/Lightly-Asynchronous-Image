@@ -48,16 +48,33 @@
     NSURL *requestURL = [NSURL URLWithString:url];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: requestURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.f];
     
+    [self queryDiskCacheForKey:url completeBlock:^(NSData *data, BOOL success, NSString *errorMessage) {
+        if (success) {
+            NSLog(@"CacheHit");
+            completeBlock([UIImage imageWithData:data]);
+        }
+        return;
+    }];
+    
     ImageDownloaderOperation *operation = [[ImageDownloaderOperation alloc] initWithOperationId:url
                                                                                         request:request
                                                                                   progressBlock:progressBlock
-                                                                                  completeBlock:completeBlock
+                                                                                  completeBlock:completeBlock cacheBlock:^(NSData *cacheData) {
+                                                                                      @synchronized(_imageCache) {
+                                                                                          [_imageCache setObject:cacheData forKey:url];
+                                                                                      }
+                                                                                  }
                                                                                    failureBlock:failureBlock];
     
-//    @synchronized([self runningOperations]) {
-//        [_runningOperations setObject:operation forKey:url];
-//    }
+
     [_runningQueue addOperation:operation];
 }
 
+- (void)queryDiskCacheForKey:(NSString *)key completeBlock:(cacheQueryBlock)block
+{
+    NSData *data = [_imageCache objectForKey:key];
+    if (data) {
+        block(data, YES, nil);
+    }
+}
 @end

@@ -20,7 +20,7 @@
     [super viewDidLoad];
     _dataSource = [[TableViewDataSource alloc] init];
     _dataSource.block = ^(CustomTableViewCell *cell, NSIndexPath *indexPath){
-        [cell.imageView imageWithURL:[NSString stringWithFormat:@"http://7xj983.com1.z0.glb.clouddn.com/sureeddingapps_%2ld.png", (long)indexPath.row] placeHolderImage:[UIImage imageNamed:@"rin"]];
+        [cell.imageView imageWithURL:[NSString stringWithFormat:@"http://7xj983.com1.z0.glb.clouddn.com/sureeddingapps_0%ld.png", (long)indexPath.row] placeHolderImage:[UIImage imageNamed:@"rin"]];
     };
     _tableView.delegate = _dataSource;
     _tableView.dataSource = _dataSource;

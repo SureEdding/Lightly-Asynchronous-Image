@@ -15,9 +15,9 @@
 @property (strong, nonatomic) progressBlock progressblock;
 @property (strong, nonatomic) completeBlock completeblock;
 @property (strong, nonatomic) failBlock     failblock;
+@property (strong, nonatomic) cacheBlock    cacheblock;
 @property (strong, nonatomic) NSURLRequest *request;
 @property (strong, nonatomic) NSURLConnection *connection;
-
 @end
 
 @implementation ImageDownloaderOperation
@@ -27,7 +27,8 @@
                             request:(nonnull    NSURLRequest *)request
                       progressBlock:(nullable   progressBlock)progress
                       completeBlock:(nonnull    completeBlock)complete
-                       failureBlock:(nullable   failBlock)failure
+                         cacheBlock:(nonnull    cacheBlock)cache
+                       failureBlock:(nullable   failBlock)failure;
 {
     if (self = [super init]) {
         _request = request;
@@ -35,6 +36,7 @@
         _progressblock = progress;
         _completeblock = complete;
         _failblock  = failure;
+        _cacheblock = cache;
     }
     return self;
 }
@@ -46,8 +48,9 @@
     NSURLSessionDataTask *task = [session dataTaskWithRequest:_request completionHandler:
                                   ^(NSData * __nullable data, NSURLResponse * __nullable response, NSError * __nullable error) {
                                       if (!error) {
-                                          if (data)
+                                          if (data.length > 100)
                                           {
+                                              _cacheblock(data);
                                               _completeblock([UIImage imageWithData:data]);
                                           }
                                       }
