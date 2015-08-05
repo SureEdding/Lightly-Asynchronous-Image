@@ -10,8 +10,19 @@
 
 @interface UIImageView (AsyncImage)
 
+
+/**
+ *    @author Sure Edding, 15-08-04 12:08:50
+ *
+ *    @brief  通过URL获取网络图片，图片未获取完成之前显示Placeholder中的图片，功能类似SDWebImage
+ *
+ *    @param url         网络获取图片链接
+ *    @param placeHolder 获取数据未完成时候的占位图
+ *
+ *    @since 1.0
+ */
 - (void)imageWithURL:(nullable NSString *)url
-    placeHolderImage:(nullable UIImage *)placeHolder;
+    placeHolderImage:(nullable UIImage  *)placeHolder;
 
 @end
 

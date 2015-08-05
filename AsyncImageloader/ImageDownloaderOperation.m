@@ -7,7 +7,7 @@
 //
 
 #import "ImageDownloaderOperation.h"
-@interface ImageDownloaderOperation()<NSURLConnectionDataDelegate, NSURLSessionDataDelegate>
+@interface ImageDownloaderOperation()<NSURLConnectionDataDelegate, NSURLSessionDataDelegate, NSURLSessionDelegate, NSURLSessionTaskDelegate>
 
 @property (strong, nonatomic) NSString *url;
 @property (strong, nonatomic) NSData *imageData;
@@ -44,7 +44,8 @@
 - (void)start
 {
     
-    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
+//    NSURLSessionDataTask *task = 
     NSURLSessionDataTask *task = [session dataTaskWithRequest:_request completionHandler:
                                   ^(NSData * __nullable data, NSURLResponse * __nullable response, NSError * __nullable error) {
                                       if (!error) {
@@ -59,6 +60,7 @@
                                           _failblock(error.localizedDescription);
                                       }
                                   }];
+    
     [task resume];
     
 }
@@ -66,4 +68,42 @@
 {
     NSLog(@"%@", _operationId);
 }
+/* The last message a session receives.  A session will only become
+ * invalid because of a systemic error or when it has been
+ * explicitly invalidated, in which case the error parameter will be nil.
+ */
+- (void)URLSession:(NSURLSession *)session didBecomeInvalidWithError:(nullable NSError *)error
+{
+    NSLog(@"didBecomeInvalidWithError");
+}
+
+/* If implemented, when a connection level authentication challenge
+ * has occurred, this delegate will be given the opportunity to
+ * provide authentication credentials to the underlying
+ * connection. Some types of authentication will apply to more than
+ * one request on a given connection to a server (SSL Server Trust
+ * challenges).  If this delegate message is not implemented, the
+ * behavior will be to use the default handling, which may involve user
+ * interaction.
+ */
+- (void)URLSession:(NSURLSession *)session didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
+ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * __nullable credential))completionHandler
+{
+    NSLog(@"didReceiveChallenge");
+}
+
+/* If an application has received an
+ * -application:handleEventsForBackgroundURLSession:completionHandler:
+ * message, the session delegate will receive this message to indicate
+ * that all messages previously enqueued for this session have been
+ * delivered.  At this time it is safe to invoke the previously stored
+ * completion handler, or to begin any internal updates that will
+ * result in invoking the completion handler.
+ */
+- (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session NS_AVAILABLE_IOS(7_0)
+{
+    NSLog(@"URLSessionDidFinishEventsForBackgroundURLSession");
+}
+
+
 @end

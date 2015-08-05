@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "CustomTableViewCell.h"
+#import "CustomCollectionViewCell.h"
 
-typedef void (^CustomCell)(CustomTableViewCell *cell, NSIndexPath *indexPath);
-@interface TableViewDataSource : NSObject <UITableViewDataSource,UITableViewDelegate>
 
+typedef void (^CustomCell)(CustomCollectionViewCell *cell, NSIndexPath *indexPath);
+
+#pragma mark:datasource interface
+@interface CollectionViewDataSource : NSObject <UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (strong, nonatomic) CustomCell block;
 
