@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		046260331B71DA1200B4336A /* CustomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 046260321B71DA1200B4336A /* CustomCollectionViewCell.m */; };
 		0462603A1B71E16300B4336A /* CustomCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046260391B71E16300B4336A /* CustomCollectionViewCell.xib */; };
+		046260441B71E3C400B4336A /* ImageDownloaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0462603F1B71E3C400B4336A /* ImageDownloaderManager.m */; };
+		046260451B71E3C400B4336A /* ImageDownloaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 046260411B71E3C400B4336A /* ImageDownloaderOperation.m */; };
+		046260461B71E3C400B4336A /* UIImageView+AsyncImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 046260431B71E3C400B4336A /* UIImageView+AsyncImage.m */; };
 		04BFE1E21B6F6318000373D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BFE1E11B6F6318000373D7 /* main.m */; };
 		04BFE1E51B6F6318000373D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BFE1E41B6F6318000373D7 /* AppDelegate.m */; };
 		04BFE1E81B6F6318000373D7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BFE1E71B6F6318000373D7 /* ViewController.m */; };
@@ -17,15 +20,19 @@
 		04BFE1F01B6F6318000373D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04BFE1EE1B6F6318000373D7 /* LaunchScreen.storyboard */; };
 		04BFE1F91B6F660B000373D7 /* CollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BFE1F81B6F660B000373D7 /* CollectionViewDataSource.m */; };
 		04BFE1FC1B6F6699000373D7 /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BFE1FB1B6F6699000373D7 /* CustomTableViewCell.m */; };
-		04BFE2021B6F6C96000373D7 /* ImageDownloaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BFE2011B6F6C96000373D7 /* ImageDownloaderOperation.m */; };
-		04BFE2051B6F70C1000373D7 /* ImageDownloaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BFE2041B6F70C1000373D7 /* ImageDownloaderManager.m */; };
-		04BFE20D1B6F781F000373D7 /* UIImageView+AsyncImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BFE20C1B6F781F000373D7 /* UIImageView+AsyncImage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		046260311B71DA1200B4336A /* CustomCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCollectionViewCell.h; sourceTree = "<group>"; };
 		046260321B71DA1200B4336A /* CustomCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCollectionViewCell.m; sourceTree = "<group>"; };
 		046260391B71E16300B4336A /* CustomCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCollectionViewCell.xib; sourceTree = "<group>"; };
+		0462603D1B71E3C400B4336A /* Define.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Define.h; sourceTree = "<group>"; };
+		0462603E1B71E3C400B4336A /* ImageDownloaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDownloaderManager.h; sourceTree = "<group>"; };
+		0462603F1B71E3C400B4336A /* ImageDownloaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDownloaderManager.m; sourceTree = "<group>"; };
+		046260401B71E3C400B4336A /* ImageDownloaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDownloaderOperation.h; sourceTree = "<group>"; };
+		046260411B71E3C400B4336A /* ImageDownloaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDownloaderOperation.m; sourceTree = "<group>"; };
+		046260421B71E3C400B4336A /* UIImageView+AsyncImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AsyncImage.h"; sourceTree = "<group>"; };
+		046260431B71E3C400B4336A /* UIImageView+AsyncImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AsyncImage.m"; sourceTree = "<group>"; };
 		04BFE1DD1B6F6318000373D7 /* AsyncImageloader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AsyncImageloader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04BFE1E11B6F6318000373D7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		04BFE1E31B6F6318000373D7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -40,12 +47,6 @@
 		04BFE1F81B6F660B000373D7 /* CollectionViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewDataSource.m; sourceTree = "<group>"; };
 		04BFE1FA1B6F6699000373D7 /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
 		04BFE1FB1B6F6699000373D7 /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
-		04BFE2001B6F6C96000373D7 /* ImageDownloaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDownloaderOperation.h; sourceTree = "<group>"; };
-		04BFE2011B6F6C96000373D7 /* ImageDownloaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDownloaderOperation.m; sourceTree = "<group>"; };
-		04BFE2031B6F70C1000373D7 /* ImageDownloaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDownloaderManager.h; sourceTree = "<group>"; };
-		04BFE2041B6F70C1000373D7 /* ImageDownloaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDownloaderManager.m; sourceTree = "<group>"; };
-		04BFE20B1B6F781F000373D7 /* UIImageView+AsyncImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AsyncImage.h"; sourceTree = "<group>"; };
-		04BFE20C1B6F781F000373D7 /* UIImageView+AsyncImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AsyncImage.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +60,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0462603C1B71E3C400B4336A /* ImageLoaderExtention */ = {
+			isa = PBXGroup;
+			children = (
+				0462603D1B71E3C400B4336A /* Define.h */,
+				0462603E1B71E3C400B4336A /* ImageDownloaderManager.h */,
+				0462603F1B71E3C400B4336A /* ImageDownloaderManager.m */,
+				046260401B71E3C400B4336A /* ImageDownloaderOperation.h */,
+				046260411B71E3C400B4336A /* ImageDownloaderOperation.m */,
+				046260421B71E3C400B4336A /* UIImageView+AsyncImage.h */,
+				046260431B71E3C400B4336A /* UIImageView+AsyncImage.m */,
+			);
+			path = ImageLoaderExtention;
+			sourceTree = "<group>";
+		};
 		04BFE1D41B6F6317000373D7 = {
 			isa = PBXGroup;
 			children = (
@@ -78,7 +93,7 @@
 		04BFE1DF1B6F6318000373D7 /* AsyncImageloader */ = {
 			isa = PBXGroup;
 			children = (
-				04BFE2071B6F7470000373D7 /* ImageDownloader */,
+				0462603C1B71E3C400B4336A /* ImageLoaderExtention */,
 				04BFE1E31B6F6318000373D7 /* AppDelegate.h */,
 				04BFE1E41B6F6318000373D7 /* AppDelegate.m */,
 				046260311B71DA1200B4336A /* CustomCollectionViewCell.h */,
@@ -105,19 +120,6 @@
 				04BFE1E11B6F6318000373D7 /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		04BFE2071B6F7470000373D7 /* ImageDownloader */ = {
-			isa = PBXGroup;
-			children = (
-				04BFE2001B6F6C96000373D7 /* ImageDownloaderOperation.h */,
-				04BFE2011B6F6C96000373D7 /* ImageDownloaderOperation.m */,
-				04BFE2031B6F70C1000373D7 /* ImageDownloaderManager.h */,
-				04BFE2041B6F70C1000373D7 /* ImageDownloaderManager.m */,
-				04BFE20B1B6F781F000373D7 /* UIImageView+AsyncImage.h */,
-				04BFE20C1B6F781F000373D7 /* UIImageView+AsyncImage.m */,
-			);
-			name = ImageDownloader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,11 +193,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				046260451B71E3C400B4336A /* ImageDownloaderOperation.m in Sources */,
 				04BFE1E81B6F6318000373D7 /* ViewController.m in Sources */,
 				04BFE1E51B6F6318000373D7 /* AppDelegate.m in Sources */,
-				04BFE2051B6F70C1000373D7 /* ImageDownloaderManager.m in Sources */,
-				04BFE20D1B6F781F000373D7 /* UIImageView+AsyncImage.m in Sources */,
-				04BFE2021B6F6C96000373D7 /* ImageDownloaderOperation.m in Sources */,
+				046260441B71E3C400B4336A /* ImageDownloaderManager.m in Sources */,
+				046260461B71E3C400B4336A /* UIImageView+AsyncImage.m in Sources */,
 				04BFE1F91B6F660B000373D7 /* CollectionViewDataSource.m in Sources */,
 				046260331B71DA1200B4336A /* CustomCollectionViewCell.m in Sources */,
 				04BFE1FC1B6F6699000373D7 /* CustomTableViewCell.m in Sources */,

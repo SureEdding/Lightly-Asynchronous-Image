@@ -41,6 +41,7 @@
 }
 
 - (void)downloadImageWithURL:(NSString *)url
+                downloadType:(DownloadPolicy)policy
                progressBlock:(progressBlock)progressBlock
                completeBlock:(completeBlock)completeBlock
                 failureBlock:(failBlock)failureBlock
@@ -55,19 +56,29 @@
         }
         return;
     }];
-    
     ImageDownloaderOperation *operation = [[ImageDownloaderOperation alloc] initWithOperationId:url
                                                                                         request:request
+                                                                                 downloadPolicy:policy
                                                                                   progressBlock:progressBlock
-                                                                                  completeBlock:completeBlock cacheBlock:^(NSData *cacheData) {
-                                                                                      @synchronized(_imageCache) {
-                                                                                          [_imageCache setObject:cacheData forKey:url];
-                                                                                      }
-                                                                                  }
-                                                                                   failureBlock:failureBlock];
-    
-
+                                                                                  completeBlock:completeBlock
+                                                                                     cacheBlock:^(NSData *cacheData) {
+                                                                                         @synchronized(_imageCache) {
+                                                                                             [_imageCache setObject:cacheData forKey:url];
+                                                                                         }
+                                                                                     } failureBlock:failureBlock];
     [_runningQueue addOperation:operation];
+}
+
+
+- (void)downloadImageWithURL:(NSString *)url
+               completeBlock:(completeBlock)completeBlock
+                failureBlock:(failBlock)failureBlock
+{
+    return [self downloadImageWithURL:url
+                         downloadType:dNormalDownload
+                        progressBlock:nil
+                        completeBlock:completeBlock
+                         failureBlock:failureBlock];
 }
 
 - (void)queryDiskCacheForKey:(NSString *)key completeBlock:(cacheQueryBlock)block

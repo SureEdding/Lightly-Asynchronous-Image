@@ -13,7 +13,26 @@
 - (void)imageWithURL:(nullable NSString *)url
     placeHolderImage:(nullable UIImage *)placeHolder;
 {
-    
+    return [self imageWithURL:url
+             placeHolderImage:placeHolder
+                progressBlock:nil];
+}
+
+- (void)imageWithURL:(nullable NSString *)url
+    placeHolderImage:(nullable UIImage *)placeHolder
+       progressBlock:(nullable progressBlock)progress
+{
+    return [self imageWithURL:url
+             placeHolderImage:placeHolder
+                progressBlock:progress
+                completeBlock:nil];
+}
+
+- (void)imageWithURL:(nullable NSString *)url
+    placeHolderImage:(nullable UIImage *)placeHolder
+       progressBlock:(nullable progressBlock)progress
+       completeBlock:(nullable void (^)(void))completeBlock
+{
     if (url)
     {
         __block UIImage *expectedImage;
@@ -23,9 +42,8 @@
             dispatch_main_sync_safe(^{self.image = placeHolder;});
         }
         [[ImageDownloaderManager shareInstance] downloadImageWithURL:url
-                                                       progressBlock:^(NSInteger currentValue, NSInteger expectedValue){
-                                                           NSLog(@"progressBlock");}
-         
+                                                        downloadType:dNormalDownload
+                                                       progressBlock:progress
                                                        completeBlock:^(UIImage *image) {
                                                            NSLog(@"CompleteBlock");
                                                            expectedImage = [image copy];
@@ -37,7 +55,8 @@
                                                             NSLog(@"faulure: %@", message);
                                                         }];}
     
-    
-  
+    if (completeBlock) {
+        completeBlock();
+    }
 }
 @end
