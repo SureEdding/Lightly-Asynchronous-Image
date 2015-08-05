@@ -42,7 +42,7 @@
             dispatch_main_sync_safe(^{self.image = placeHolder;});
         }
         [[ImageDownloaderManager shareInstance] downloadImageWithURL:url
-                                                        downloadType:dNormalDownload
+                                                        downloadType:(progress ? dBigImageDownload : dNormalDownload)
                                                        progressBlock:progress
                                                        completeBlock:^(UIImage *image) {
                                                            NSLog(@"CompleteBlock");

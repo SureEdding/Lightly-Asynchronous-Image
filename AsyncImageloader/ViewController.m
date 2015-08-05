@@ -36,7 +36,9 @@
     
     _dataSource = [[CollectionViewDataSource alloc] init];
     _dataSource.block = ^(CustomCollectionViewCell *cell, NSIndexPath *indexPath){
-        [cell.bigImageView imageWithURL:[NSString stringWithFormat:@"%@%ld.png", IMAGE_URL, (long)indexPath.row] placeHolderImage:[UIImage imageNamed:@"rin"]];
+        [cell.bigImageView imageWithURL:[NSString stringWithFormat:@"%@%ld.png", IMAGE_URL, (long)indexPath.row] placeHolderImage:[UIImage imageNamed:@"rin"] progressBlock:^(int64_t currentValue, int64_t expectedValue) {
+            NSLog(@"%lld / %lld", currentValue, expectedValue);
+        }];
     };
     _collectionView.delegate = _dataSource;
     _collectionView.dataSource = _dataSource;

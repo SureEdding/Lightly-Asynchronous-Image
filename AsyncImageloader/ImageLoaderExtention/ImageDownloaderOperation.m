@@ -93,7 +93,6 @@ didFinishDownloadingToURL:(NSURL *)location
  totalBytesWritten:(int64_t)totalBytesWritten
 totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
 {
-    NSLog(@"%lld/%lld", bytesWritten, totalBytesExpectedToWrite);
     if (_progressblock) {
         _progressblock(bytesWritten, totalBytesExpectedToWrite);        
     }
