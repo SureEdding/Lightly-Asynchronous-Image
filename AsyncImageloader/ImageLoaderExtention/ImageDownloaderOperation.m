@@ -84,6 +84,7 @@ didFinishDownloadingToURL:(NSURL *)location
     NSLog(@"didFinishDownloadingToURL, %@", location);
     NSData *finishedData = [NSData dataWithContentsOfURL:location];
     if (finishedData) {
+        _cacheblock(finishedData);
         _completeblock([UIImage imageWithData:finishedData]);
     }
 }
