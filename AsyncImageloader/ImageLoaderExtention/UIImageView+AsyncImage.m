@@ -25,13 +25,26 @@
     return [self imageWithURL:url
              placeHolderImage:placeHolder
                 progressBlock:progress
-                completeBlock:nil];
+                completeBlock:nil
+               ImageCacheType:cTempCache];
+}
+- (void)imageWithURL:(nullable NSString *)url
+    placeHolderImage:(nullable UIImage *)placeHolder
+      ImageCacheType:(ImageCachePolicy)cachePolicy
+{
+    return [self imageWithURL:url
+             placeHolderImage:placeHolder
+                progressBlock:nil
+                completeBlock:nil
+               ImageCacheType:cachePolicy];
 }
 
 - (void)imageWithURL:(nullable NSString *)url
     placeHolderImage:(nullable UIImage *)placeHolder
        progressBlock:(nullable progressBlock)progress
        completeBlock:(nullable void (^)(void))completeBlock
+      ImageCacheType:(ImageCachePolicy)cachePolicy
+
 {
     if (url)
     {
@@ -43,6 +56,7 @@
         }
         [[ImageDownloaderManager shareInstance] downloadImageWithURL:url
                                                         downloadType:(progress ? dBigImageDownload : dNormalDownload)
+                                                           cacheType:cachePolicy
                                                        progressBlock:progress
                                                        completeBlock:^(UIImage *image) {
                                                            NSLog(@"CompleteBlock");

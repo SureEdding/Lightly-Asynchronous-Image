@@ -1,2 +1,2 @@
 # LightAsyncImageloader_SelfStudy
-自制异步加载图片，本地url图片缓存扩展类，大图下载进度条
+自学用的异步加载图片，本地url图片缓存扩展类

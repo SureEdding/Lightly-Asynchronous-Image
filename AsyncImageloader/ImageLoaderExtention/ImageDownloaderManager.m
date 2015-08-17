@@ -8,6 +8,8 @@
 
 #import "ImageDownloaderManager.h"
 #import "ImageDownloaderOperation.h"
+#import "ImageLoaderPersistentStoreStack.h"
+#import "Image+CoreDataProperties.h"
 
 @interface ImageDownloaderManager()
 
@@ -42,30 +44,62 @@
 
 - (void)downloadImageWithURL:(NSString *)url
                 downloadType:(DownloadPolicy)policy
+                   cacheType:(ImageCachePolicy)cachePolicy
                progressBlock:(progressBlock)progressBlock
                completeBlock:(completeBlock)completeBlock
                 failureBlock:(failBlock)failureBlock
 {
     NSURL *requestURL = [NSURL URLWithString:url];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: requestURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.f];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: requestURL
+                                                                cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                            timeoutInterval:10.f];
     
-    [self queryDiskCacheForKey:url completeBlock:^(NSData *data, BOOL success, NSString *errorMessage) {
-        if (success) {
-            NSLog(@"CacheHit");
-            completeBlock([UIImage imageWithData:data]);
+    cacheBlock cacheblock = nil;
+    if (cTempCache == cachePolicy) {
+        
+        [self queryDiskCacheForKey:url completeBlock:^(NSData *data, BOOL success, NSString *errorMessage) {
+            if (success) {
+                NSLog(@"CacheHit");
+                completeBlock([UIImage imageWithData:data]);
+            }
+            return;
+        }];
+        
+        cacheblock =  ^(NSData *cacheData){
+            @synchronized(_imageCache) {
+                [_imageCache setObject:cacheData forKey:url];
+            }
+        };
+        
+    } else if (cNoCache == cachePolicy) {
+        [self deleteDiskCacheForKey:url];
+    } else {
+        NSManagedObjectContext *moc = [[ImageLoaderPersistentStoreStack shareInstance] managedObjectContextForKey:url queue:_runningQueue];
+        
+        Image *imageObject = [Image findObjectWithKey:url inContext:moc];
+        
+        if (imageObject) {
+            UIImage *image = [UIImage imageWithData:imageObject.data];
+            completeBlock(image);
+            return;
+        } else {
+            cacheblock = ^(NSData *cacheData){
+                [Image importImageDataWithKey:url imageData:cacheData intoContext:moc];
+                [moc save:nil];
+                [[ImageLoaderPersistentStoreStack shareInstance] clearManagedObjectContextWithKey:url];
+            };
         }
-        return;
-    }];
+    }
+    
+    
+    
     ImageDownloaderOperation *operation = [[ImageDownloaderOperation alloc] initWithOperationId:url
                                                                                         request:request
                                                                                  downloadPolicy:policy
                                                                                   progressBlock:progressBlock
                                                                                   completeBlock:completeBlock
-                                                                                     cacheBlock:^(NSData *cacheData) {
-                                                                                         @synchronized(_imageCache) {
-                                                                                             [_imageCache setObject:cacheData forKey:url];
-                                                                                         }
-                                                                                     } failureBlock:failureBlock];
+                                                                                     cacheBlock:cacheblock
+                                                                                   failureBlock:failureBlock];
     [_runningQueue addOperation:operation];
 }
 
@@ -76,6 +110,7 @@
 {
     return [self downloadImageWithURL:url
                          downloadType:dNormalDownload
+                            cacheType:cTempCache
                         progressBlock:nil
                         completeBlock:completeBlock
                          failureBlock:failureBlock];
@@ -87,5 +122,10 @@
     if (data) {
         block(data, YES, nil);
     }
+}
+
+- (void)deleteDiskCacheForKey:(NSString *)key
+{
+    [_imageCache removeObjectForKey:key];
 }
 @end

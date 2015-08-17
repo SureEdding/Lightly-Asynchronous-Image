@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class CollectionViewDataSource;
 @interface ViewController : UIViewController
 
+@property (strong, nonatomic) UICollectionView *collectionView;
+@property (strong, nonatomic) CollectionViewDataSource *dataSource;
 
 @end
 

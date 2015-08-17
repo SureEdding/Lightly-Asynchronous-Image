@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "ImageDownloaderManager.h"
 
-
 @interface ImageDownloaderOperation : NSOperation
 
 /**
@@ -27,13 +26,12 @@
  *
  *    @since 1.0
  */
-- (instancetype)initWithOperationId:(nonnull    NSString *)operationId
-                            request:(nonnull    NSURLRequest *)request
-                     downloadPolicy:(           DownloadPolicy)policy
-                      progressBlock:(nullable   progressBlock)progress
-                      completeBlock:(nonnull    completeBlock)complete
-                         cacheBlock:(nonnull    cacheBlock)cache
-                       failureBlock:(nullable   failBlock)failure;
-
+- (nonnull instancetype)initWithOperationId:(nonnull    NSString *)operationId
+                                    request:(nonnull    NSURLRequest *)request
+                             downloadPolicy:(           DownloadPolicy)policy
+                              progressBlock:(nullable   progressBlock)progress
+                              completeBlock:(nonnull    completeBlock)complete
+                                 cacheBlock:(nonnull    cacheBlock)cache
+                               failureBlock:(nullable   failBlock)failure;
 
 @end

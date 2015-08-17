@@ -9,7 +9,9 @@
 #ifndef __Define_h__
 #define __Define_h__
 
-
+#import "ImageDownloaderManager.h"
+#import "ImageDownloaderOperation.h"
+#import "UIImageView+AsyncImage.h"
 
 
 #pragma mark : Method Define

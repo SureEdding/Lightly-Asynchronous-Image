@@ -11,9 +11,20 @@
  图片下载策略
  */
 typedef enum DownloadPolicy : NSUInteger {
+    //默认下载方式，调用普通task
     dNormalDownload,
+    //大文件下载方式，调用downloadTask
     dBigImageDownload
 } DownloadPolicy;
+
+typedef enum ImageCachePolicy : NSUInteger {
+    //默认缓存方式，如果缓存中有相应图片，直接予以显示，否则读取网络图片
+    cTempCache,
+    //持续化缓存方式，优先从持久化存储中读取图片，若无，则从网络获取图片
+    cPersistentCache,
+    //忽略缓存，直接从网络中读取图片
+    cNoCache
+} ImageCachePolicy;
 
 typedef void (^progressBlock)(int64_t currentValue, int64_t expectedValue);
 
@@ -27,6 +38,15 @@ typedef void (^cacheQueryBlock)(NSData *data , BOOL success, NSString *errorMess
 
 @interface ImageDownloaderManager : NSOperation
 
+/**
+ *    @author Sure Edding, 15-08-05 16:08:23
+ *
+ *    @brief  Singleton
+ *
+ *    @return Singleton
+ *
+ *    @since 1.0
+ */
 + (id)shareInstance;
 
 /**
@@ -43,6 +63,7 @@ typedef void (^cacheQueryBlock)(NSData *data , BOOL success, NSString *errorMess
  */
 - (void)downloadImageWithURL:(NSString *)url
                 downloadType:(DownloadPolicy)policy
+                   cacheType:(ImageCachePolicy)cachePolicy
                progressBlock:(progressBlock)progressBlock
                completeBlock:(completeBlock)completeBlock
                 failureBlock:(failBlock)failureBlock;

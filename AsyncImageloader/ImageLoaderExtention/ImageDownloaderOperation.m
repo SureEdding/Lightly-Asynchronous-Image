@@ -58,7 +58,9 @@
                                           if (!error) {
                                               if (data.length > 100)
                                               {
-                                                  _cacheblock(data);
+                                                  if (_cacheblock) {
+                                                      _cacheblock(data);
+                                                  }
                                                   _completeblock([UIImage imageWithData:data]);
                                               }
                                           }
@@ -84,7 +86,9 @@ didFinishDownloadingToURL:(NSURL *)location
     NSLog(@"didFinishDownloadingToURL, %@", location);
     NSData *finishedData = [NSData dataWithContentsOfURL:location];
     if (finishedData) {
+        if (_cacheblock) {
         _cacheblock(finishedData);
+    }
         _completeblock([UIImage imageWithData:finishedData]);
     }
 }

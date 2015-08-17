@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "ImageDownloaderManager.h"
 
+
+
 @interface UIImageView (AsyncImage)
 
 
@@ -40,9 +42,13 @@
     placeHolderImage:(nullable UIImage *)placeHolder
        progressBlock:(nullable progressBlock)progress;
 
+- (void)imageWithURL:(nullable NSString *)url
+    placeHolderImage:(nullable UIImage *)placeHolder
+      ImageCacheType:(ImageCachePolicy)cachePolicy;
+
 
 /**
- *    @author Sure Edding, 15-08-05 14:08:25
+ ;*    @author Sure Edding, 15-08-05 14:08:25
  *
  *    @brief  通过URL获取网络图片，带进度条回调,带完成回调
  *
@@ -56,5 +62,8 @@
 - (void)imageWithURL:(nullable NSString *)url
     placeHolderImage:(nullable UIImage *)placeHolder
        progressBlock:(nullable progressBlock)progress
-       completeBlock:(nullable void (^)(void))completeBlock;
+       completeBlock:(nullable void (^)(void))completeBlock
+      ImageCacheType:(ImageCachePolicy)cachePolicy;
+
+
 @end

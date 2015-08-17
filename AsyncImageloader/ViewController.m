@@ -15,8 +15,6 @@
 
 #define IMAGE_URL @"http://7xj983.com1.z0.glb.clouddn.com/sureeddingapps_"
 
-@property (strong, nonatomic) UICollectionView *collectionView;
-@property (strong, nonatomic) CollectionViewDataSource *dataSource;
 
 
 @end
@@ -36,9 +34,11 @@
     
     _dataSource = [[CollectionViewDataSource alloc] init];
     _dataSource.block = ^(CustomCollectionViewCell *cell, NSIndexPath *indexPath){
-        [cell.bigImageView imageWithURL:[NSString stringWithFormat:@"%@%ld.png", IMAGE_URL, (long)indexPath.row] placeHolderImage:[UIImage imageNamed:@"rin"] progressBlock:^(int64_t currentValue, int64_t expectedValue) {
-            NSLog(@"%lld / %lld", currentValue, expectedValue);
-        }];
+//        [cell.bigImageView imageWithURL:[NSString stringWithFormat:@"%@%ld.png", IMAGE_URL, (long)indexPath.row] placeHolderImage:[UIImage imageNamed:@"rin"] progressBlock:^(int64_t currentValue, int64_t expectedValue) {
+//            NSLog(@"%lld / %lld", currentValue, expectedValue);
+//            
+//        }];
+        [cell.bigImageView imageWithURL:[NSString stringWithFormat:@"%@%ld.png", IMAGE_URL, (long)indexPath.row] placeHolderImage:[UIImage imageNamed:@"rin"] progressBlock:nil completeBlock:nil ImageCacheType:cPersistentCache];
     };
     _collectionView.delegate = _dataSource;
     _collectionView.dataSource = _dataSource;
