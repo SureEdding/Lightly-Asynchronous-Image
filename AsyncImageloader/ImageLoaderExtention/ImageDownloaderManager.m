@@ -13,14 +13,12 @@
 
 @interface ImageDownloaderManager()
 
-@property (strong, nonatomic) NSCache *imageCache;
 @property (strong, nonatomic) NSMutableDictionary *runningOperations;
 @property (strong, nonatomic) NSOperationQueue *runningQueue;
 
 @end
 
 @implementation ImageDownloaderManager
-@synthesize imageCache = _imageCache;
 @synthesize runningOperations = _runningOperations;
 + (id)shareInstance
 {
@@ -36,7 +34,6 @@
 {
     if (self = [super init]) {
         _runningQueue = [NSOperationQueue new];
-        _imageCache = [NSCache new];
         _runningOperations = [NSMutableDictionary new];
     }
     return self;
@@ -55,38 +52,32 @@
                                                             timeoutInterval:10.f];
     
     cacheBlock cacheblock = nil;
-    if (cTempCache == cachePolicy) {
+    if (cCachePolicyTempCache == cachePolicy) {
         
-        [self queryDiskCacheForKey:url completeBlock:^(NSData *data, BOOL success, NSString *errorMessage) {
-            if (success) {
-                NSLog(@"CacheHit");
-                completeBlock([UIImage imageWithData:data]);
-            }
-            return;
-        }];
+        NSData *imageData = [[ImageLoaderCacheManager shareInstance] objectForKeyFromCacheWithKey:url withPolicy:cCachePolicyTempCache];
+        if (imageData) {
+            NSLog(@"temp Cache hit");
+            UIImage *image = [UIImage imageWithData:imageData];
+            completeBlock(image);
+        } else {
+            cacheblock = ^(NSData *cacheData){
+                NSLog(@"network temp set cache ");
+                [[ImageLoaderCacheManager shareInstance] setObjectForCacheWithKey:url data:cacheData cachePolicy:cCachePolicyTempCache];
+            };
+        }
+    } else if (cCachePolicyNetwork == cachePolicy) {
         
-        cacheblock =  ^(NSData *cacheData){
-            @synchronized(_imageCache) {
-                [_imageCache setObject:cacheData forKey:url];
-            }
-        };
-        
-    } else if (cNoCache == cachePolicy) {
-        [self deleteDiskCacheForKey:url];
     } else {
-        NSManagedObjectContext *moc = [[ImageLoaderPersistentStoreStack shareInstance] managedObjectContextForKey:url queue:_runningQueue];
-        
-        Image *imageObject = [Image findObjectWithKey:url inContext:moc];
-        
-        if (imageObject) {
-            UIImage *image = [UIImage imageWithData:imageObject.data];
+        NSData *imageData = [[ImageLoaderCacheManager shareInstance] objectForKeyFromCacheWithKey:url withPolicy:cCachePolicyPersistentCache];
+        if (imageData) {
+            NSLog(@"Persistent Cache hit");
+            UIImage *image = [UIImage imageWithData:imageData];
             completeBlock(image);
             return;
         } else {
             cacheblock = ^(NSData *cacheData){
-                [Image importImageDataWithKey:url imageData:cacheData intoContext:moc];
-                [moc save:nil];
-                [[ImageLoaderPersistentStoreStack shareInstance] clearManagedObjectContextWithKey:url];
+                NSLog(@"network Persistent set cache ");
+                [[ImageLoaderCacheManager shareInstance] setObjectForCacheWithKey:url data:cacheData cachePolicy:cCachePolicyPersistentCache];
             };
         }
     }
@@ -110,22 +101,9 @@
 {
     return [self downloadImageWithURL:url
                          downloadType:dNormalDownload
-                            cacheType:cTempCache
+                            cacheType:cCachePolicyTempCache
                         progressBlock:nil
                         completeBlock:completeBlock
                          failureBlock:failureBlock];
-}
-
-- (void)queryDiskCacheForKey:(NSString *)key completeBlock:(cacheQueryBlock)block
-{
-    NSData *data = [_imageCache objectForKey:key];
-    if (data) {
-        block(data, YES, nil);
-    }
-}
-
-- (void)deleteDiskCacheForKey:(NSString *)key
-{
-    [_imageCache removeObjectForKey:key];
 }
 @end

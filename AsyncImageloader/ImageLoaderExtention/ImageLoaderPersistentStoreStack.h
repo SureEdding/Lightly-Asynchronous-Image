@@ -16,6 +16,6 @@
 
 - (NSManagedObjectContext *)managedObjectContextForKey:(NSString *)key queue:(NSOperationQueue *)queue;
 
-- (void)clearManagedObjectContextWithKey:(NSString *)key;
+- (void)removeManagedObjectContextWithKey:(NSString *)key;
 
 @end

@@ -38,7 +38,7 @@
 //            NSLog(@"%lld / %lld", currentValue, expectedValue);
 //            
 //        }];
-        [cell.bigImageView imageWithURL:[NSString stringWithFormat:@"%@%ld.png", IMAGE_URL, (long)indexPath.row] placeHolderImage:[UIImage imageNamed:@"rin"] progressBlock:nil completeBlock:nil ImageCacheType:cPersistentCache];
+        [cell.bigImageView imageWithURL:[NSString stringWithFormat:@"%@%ld.png", IMAGE_URL, (long)indexPath.row] placeHolderImage:[UIImage imageNamed:@"rin"] progressBlock:nil completeBlock:nil ImageCacheType:cCachePolicyPersistentCache];
     };
     _collectionView.delegate = _dataSource;
     _collectionView.dataSource = _dataSource;

@@ -47,14 +47,14 @@
         if (moc) {
             return moc;
         } else {
-            NSManagedObjectContext *ManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+            NSManagedObjectContext *ManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
             ManagedObjectContext.persistentStoreCoordinator = [self persistentStoreCoordinator];
             [self setupSaveNotificationForKey:key queue:queue];
             return ManagedObjectContext;
         }
     }
 }
-- (void)clearManagedObjectContextWithKey:(NSString *)key
+- (void)removeManagedObjectContextWithKey:(NSString *)key
 {
     [_managedObjectContexts removeObjectForKey:key];
 }
@@ -104,11 +104,5 @@
                                                       }
                                                   }];
 }
-//
-////- (NSManagedObjectContext *)mainManagedObjectContext
-////{
-////    if (_mainManagedObjectContext != nil) {
-////        return _mainManagedObjectContext;
-////    }
-////}
+
 @end

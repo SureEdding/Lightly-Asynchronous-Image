@@ -26,7 +26,7 @@
              placeHolderImage:placeHolder
                 progressBlock:progress
                 completeBlock:nil
-               ImageCacheType:cTempCache];
+               ImageCacheType:cCachePolicyTempCache];
 }
 - (void)imageWithURL:(nullable NSString *)url
     placeHolderImage:(nullable UIImage *)placeHolder
@@ -59,7 +59,7 @@
                                                            cacheType:cachePolicy
                                                        progressBlock:progress
                                                        completeBlock:^(UIImage *image) {
-                                                           NSLog(@"CompleteBlock");
+//                                                           NSLog(@"CompleteBlock");
                                                            expectedImage = [image copy];
                                                            dispatch_main_sync_safe(^{
                                                                weakSelf.image = image;

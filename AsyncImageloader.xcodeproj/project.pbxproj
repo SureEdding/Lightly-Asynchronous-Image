@@ -17,6 +17,7 @@
 		047A15121B81E51400C39707 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 047A15111B81E51400C39707 /* CoreData.framework */; };
 		047A15151B81EC3100C39707 /* ImageCacheModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 047A15131B81EC3100C39707 /* ImageCacheModel.xcdatamodeld */; };
 		047A15191B81EC6B00C39707 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 047A15181B81EC6B00C39707 /* Image.m */; };
+		04ABFC771B82D20F00E174A4 /* ImageLoaderCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABFC761B82D20F00E174A4 /* ImageLoaderCacheManager.m */; };
 		04BFE1E21B6F6318000373D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BFE1E11B6F6318000373D7 /* main.m */; };
 		04BFE1E51B6F6318000373D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BFE1E41B6F6318000373D7 /* AppDelegate.m */; };
 		04BFE1E81B6F6318000373D7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BFE1E71B6F6318000373D7 /* ViewController.m */; };
@@ -58,6 +59,8 @@
 		047A15161B81EC6B00C39707 /* Image+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Image+CoreDataProperties.h"; path = "../Image+CoreDataProperties.h"; sourceTree = "<group>"; };
 		047A15171B81EC6B00C39707 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Image.h; path = ../Image.h; sourceTree = "<group>"; };
 		047A15181B81EC6B00C39707 /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Image.m; path = ../Image.m; sourceTree = "<group>"; };
+		04ABFC751B82D20F00E174A4 /* ImageLoaderCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageLoaderCacheManager.h; sourceTree = "<group>"; };
+		04ABFC761B82D20F00E174A4 /* ImageLoaderCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageLoaderCacheManager.m; sourceTree = "<group>"; };
 		04BFE1DD1B6F6318000373D7 /* AsyncImageloader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AsyncImageloader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04BFE1E11B6F6318000373D7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		04BFE1E31B6F6318000373D7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -111,6 +114,8 @@
 				047A15161B81EC6B00C39707 /* Image+CoreDataProperties.h */,
 				047A15171B81EC6B00C39707 /* Image.h */,
 				047A15181B81EC6B00C39707 /* Image.m */,
+				04ABFC751B82D20F00E174A4 /* ImageLoaderCacheManager.h */,
+				04ABFC761B82D20F00E174A4 /* ImageLoaderCacheManager.m */,
 			);
 			name = CacheModel;
 			sourceTree = "<group>";
@@ -332,6 +337,7 @@
 				04BFE1F91B6F660B000373D7 /* CollectionViewDataSource.m in Sources */,
 				046260331B71DA1200B4336A /* CustomCollectionViewCell.m in Sources */,
 				04BFE1FC1B6F6699000373D7 /* CustomTableViewCell.m in Sources */,
+				04ABFC771B82D20F00E174A4 /* ImageLoaderCacheManager.m in Sources */,
 				047A15191B81EC6B00C39707 /* Image.m in Sources */,
 				04BFE1E21B6F6318000373D7 /* main.m in Sources */,
 				047A15151B81EC3100C39707 /* ImageCacheModel.xcdatamodeld in Sources */,
